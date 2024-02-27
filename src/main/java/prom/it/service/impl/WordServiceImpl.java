@@ -32,8 +32,8 @@ public class WordServiceImpl implements WordService {
 
     @Override
     public Word getById(Long id) {
-        Optional<Word> profession = wordRepository.findById(id);
-        return profession.orElseGet(Word::new);
+        Optional<Word> word = wordRepository.findById(id);
+        return word.orElseGet(Word::new);
     }
 
     @Override

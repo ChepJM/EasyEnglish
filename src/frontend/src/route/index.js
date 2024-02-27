@@ -3,19 +3,24 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
-        path: '/professions',
-        name: 'professions',
-        component: () => import('@/views/mgmt/ProfessionManagement.vue')
+        path: '/vocabularies',
+        name: 'vocabularies',
+        component: () => import('@/views/mgmt/VocabularyManagement.vue')
     },
     {
-        path: '/departments',
-        name: 'departments',
-        component: () => import('@/views/mgmt/DepartmentManagement.vue'),
+        path: '/words',
+        name: 'words',
+        component: () => import('@/views/mgmt/WordManagement.vue'),
     },
     {
-        path: '/employees',
-        name: 'employees',
-        component: () => import('@/views/mgmt/EmployeeManagement.vue'),
+        path: '/users',
+        name: 'users',
+        component: () => import('@/views/mgmt/UserManagement.vue'),
+    },
+    {
+        path: '/roles',
+        name: 'roles',
+        component: () => import('@/views/mgmt/RoleManagement.vue'),
     }
 ]
 

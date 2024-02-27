@@ -1,5 +1,5 @@
 <template>
-  <h1>Professions</h1>
+  <h1>Users</h1>
   <hr>
   <button @click="openAddModal">
     <i/> Add
@@ -40,11 +40,12 @@ const model = reactive({
     description: 'Test description',
   },
   detailVisible: false,
-  mode: ''
+  mode: '',
+  page: 1
 })
 
 onMounted(() => {
-  getProfessions();
+  getProfessions({page: model.page});
 })
 
 function openAddModal() {
@@ -59,7 +60,7 @@ function showDetail(item) {
 }
 
 function getProfessions() {
-  axios.get('/api/profession').then((response) => {
+  axios.get('/api/user').then((response) => {
     model.data = response.data;
   });
 }

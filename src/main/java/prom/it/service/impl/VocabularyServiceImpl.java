@@ -33,8 +33,8 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     @Override
     public Vocabulary getById(Long id) {
-        Optional<Vocabulary> employee = vocabularyRepository.findById(id);
-        return employee.orElseGet(Vocabulary::new);
+        Optional<Vocabulary> vocabulary = vocabularyRepository.findById(id);
+        return vocabulary.orElseGet(Vocabulary::new);
     }
 
     @Override

@@ -1,12 +1,15 @@
 <template>
-  <button @click="moveDeps">
-    <i/> Departments
+  <button @click="moveToVocanularies">
+    <i/> Vocabularies
   </button>
-  <button  @click="moveEmpls">
-    <i/> Employees
+  <button  @click="moveToWords">
+    <i/> Words
   </button>
-  <button @click="moveProfs">
-    <i/> Professions
+  <button @click="moveToUsers">
+    <i/> Users
+  </button>
+  <button @click="moveToRoles">
+    <i/> Roles
   </button>
   <router-view />
 </template>
@@ -14,16 +17,20 @@
 <script setup>
 import router from '@/route'
 
-function moveEmpls() {
-  router.push('/employees');
+function moveToVocanularies() {
+  router.push('/vocabularies');
 }
 
-function moveDeps() {
-  router.push('/departments');
+function moveToWords() {
+  router.push('/words');
 }
 
-function moveProfs() {
-  router.push('/professions');
+function moveToUsers() {
+  router.push('/users');
+}
+
+function moveToRoles() {
+  router.push('/roles');
 }
 </script>
 

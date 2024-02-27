@@ -1,29 +1,26 @@
-<template>
-  <h1>Departments</h1>
+userStore.ts<template>
+  <h1>Professions</h1>
   <hr>
   <button @click="openAddModal">
     <i/> Add
   </button>
-  <table class="dep-tbl" v-if="model.data.length">
+  <table class="prof-tbl" v-if="model.data.length">
     <tr>
       <th>Id</th>
       <th>Name</th>
       <th>Description</th>
-      <th>Head department</th>
     </tr>
     <tr class="data-row" v-for="item in model.data" :key="item.id" @click="showDetail(item)">
       <td>{{ item.id }}</td>
       <td>{{ item.name }}</td>
       <td>{{ item.description }}</td>
-      <td>{{ item.parentDepartment?.name || '-' }}</td>
-      <td><span class="close" @click.stop="deleteDepartment(item)">&times;</span></td>
+      <td><span class="close" @click.stop="deleteProfession(item)">&times;</span></td>
     </tr>
   </table>
   <section class="no-data" v-else>There are no elements.</section>
-  <dept-detail-modal
+  <prof-detail-modal
       v-if="model.detailVisible"
-      :dept="model.selectedDept"
-      :depts="model.data"
+      :prof="model.selectedProf"
       :mode="model.mode"
       @onClose="model.detailVisible=false"
       @onSave="saveChanges"
@@ -33,26 +30,21 @@
 <script setup>
 
 import {onMounted, reactive} from "vue";
-import DeptDetailModal from "@/views/modal/DeptDetailModal.vue";
 import axios from "axios";
+import ProfDetailModal from "@/views/modal/ProfDetailModal.vue";
 
 const model = reactive({
   data: [],
-  selectedDept: {
+  selectedProf: {
     name: 'Test',
     description: 'Test description',
-    parentDepartment: {
-      name: 'Parent dept'
-    }
   },
   detailVisible: false,
   mode: ''
 })
 
 onMounted(() => {
-  axios.get('/api/department').then((response) => {
-    model.data = response.data;
-  });
+  getProfessions();
 })
 
 function openAddModal() {
@@ -61,53 +53,51 @@ function openAddModal() {
 }
 
 function showDetail(item) {
-  model.selectedDept = item;
+  model.selectedProf = item;
   model.mode = 'Edit';
   model.detailVisible = true;
 }
 
-function getDepartments() {
-  axios.get('/api/department').then((response) => {
+function getProfessions() {
+  axios.get('/api/profession').then((response) => {
     model.data = response.data;
   });
 }
 
-function saveChanges(dept) {
+function deleteProfession(prof) {
+  axios.delete(`/api/profession?id=${prof.id}`).then((response) => {
+    if (response.data) {
+      getProfessions();
+    }
+  });
+}
+
+function saveChanges(prof) {
   if (model.mode === 'Add') {
-    addDepartment(dept);
+    addProfession(prof);
   } else if (model.mode === 'Edit') {
-    updateDepartment(dept);
+    updateProfession(prof);
   }
 }
 
-function addDepartment(dept) {
-  axios.post('/api/department', dept).then(() => {
-    getDepartments();
+function addProfession(prof) {
+  axios.post('/api/profession', prof).then(() => {
+    getProfessions();
     model.detailVisible = false;
   });
 }
 
-function updateDepartment(dept) {
-  axios.patch('/api/department', dept).then(() => {
-    getDepartments();
+function updateProfession(prof) {
+  axios.patch('/api/profession', prof).then(() => {
+    getProfessions();
     model.detailVisible = false;
-  });
-}
-
-function deleteDepartment(dept) {
-  axios.delete(`/api/department?id=${dept.id}`).then((response) => {
-    if (response.data) {
-      getDepartments();
-    } else {
-      alert('You are trying to delete department that is foreign_key for another department.');
-    }
   });
 }
 
 </script>
 
 <style scoped>
-.dep-tbl {
+.prof-tbl {
   margin-top: 2em;
 }
 
@@ -123,5 +113,4 @@ tr.data-row {
 tr.data-row:hover {
   background-color: #f1f1f1;
 }
-
 </style>
