@@ -2,67 +2,69 @@ package prom.it.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import prom.it.entity.Vocabulary;
+import prom.it.service.VocabularyService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/department")
+@RequestMapping("/api/vocabulary")
 public class VocabularyController {
 
     @Autowired
-    private DepartmentServiceImpl departmentService;
+    private VocabularyService vocabularyService;
 
     /**
-     * Returns list of all departments
+     * Returns list of all vocabularies
      *
-     * @return List<Department>
+     * @return List<Vocabulary>
      */
     @GetMapping
-    public List<Department> getDepartments() {
-        return departmentService.getAll();
+    public List<Vocabulary> getVocabularies() {
+        return vocabularyService.getAll();
     }
 
     /**
-     * Add new department
+     * Add new vocabulary
      *
-     * @param department new object
-     * @return Department
+     * @param vocabulary new object
+     * @return Vocabulary
      */
     @PostMapping
-    public Department addDepartment(@RequestBody Department department) {
-        return departmentService.addDepartment(department);
+    public Vocabulary addVocabulary(@RequestBody Vocabulary vocabulary) {
+        return vocabularyService.addVocabulary(vocabulary);
     }
 
     /**
-     * Returns specified department
+     * Returns specified vocabulary
      *
-     * @param id unique identifier of department
-     * @return Department
+     * @param id unique identifier of vocabulary
+     * @return Vocabulary
      */
     @GetMapping(params = "id")
-    public Department getDepartment(@RequestParam String id) {
-        return departmentService.getById(Long.valueOf(id));
+    public Vocabulary getVocabulary(@RequestParam String id) {
+        return vocabularyService.getById(Long.valueOf(id));
     }
 
     /**
-     * Update specified department
+     * Update specified Vocabulary
      *
-     * @param department object with edited values
+     * @param vocabulary object with edited values
      * @return
      */
     @PatchMapping
-    public Department updateDepartment(@RequestBody Department department) {
-        return departmentService.updateDepartment(department);
+    public Vocabulary updateVocabulary(@RequestBody Vocabulary vocabulary) {
+        return vocabularyService.updateVocabulary(vocabulary);
     }
 
     /**
-     * Delete specified department
+     * Delete specified vocabulary
      *
-     * @param id unique identifier of department
+     * @param id unique identifier of vocabulary
      * @return true in case of success, otherwise false
      */
     @DeleteMapping
-    public Boolean deleteDepartment(@RequestParam String id) {
-        return departmentService.deleteDepartment(Long.valueOf(id));
+    public Boolean deleteVocabulary(@RequestParam String id) {
+        return vocabularyService.deleteVocabulary(Long.valueOf(id));
     }
 }

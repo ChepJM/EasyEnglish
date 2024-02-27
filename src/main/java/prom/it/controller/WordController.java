@@ -2,68 +2,69 @@ package prom.it.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import prom.it.entity.Word;
 import prom.it.service.impl.WordServiceImpl;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/profession")
+@RequestMapping("/api/word")
 public class WordController {
 
     @Autowired
-    private WordServiceImpl professionService;
+    private WordServiceImpl wordService;
 
     /**
-     * Returns list of all professions
+     * Returns list of all words
      *
-     * @return List<Profession>
+     * @return List<Word>
      */
     @GetMapping
-    public List<Profession> getProfessions() {
-        return professionService.getAll();
+    public List<Word> getWords() {
+        return wordService.getAll();
     }
 
     /**
-     * Add new profession
+     * Add new word
      *
-     * @param profession new object
-     * @return Profession
+     * @param word new object
+     * @return Word
      */
     @PostMapping
-    public Profession addProfession(@RequestBody Profession profession) {
-        return professionService.addProfession(profession);
+    public Word addWord(@RequestBody Word word) {
+        return wordService.addWord(word);
     }
 
     /**
-     * Returns specified profession
+     * Returns specified word
      *
-     * @param id unique identifier of profession
-     * @return Profession
+     * @param id unique identifier of word
+     * @return Word
      */
     @GetMapping(params = "id")
-    public Profession getProfession(@RequestParam String id) {
-        return professionService.getById(Long.valueOf(id));
+    public Word getWord(@RequestParam String id) {
+        return wordService.getById(Long.valueOf(id));
     }
 
     /**
-     * Update specified profession
+     * Update specified word
      *
-     * @param profession object with edited values
-     * @return Profession
+     * @param word object with edited values
+     * @return Word
      */
     @PatchMapping
-    public Profession updateProfession(@RequestBody Profession profession) {
-        return professionService.updateProfession(profession);
+    public Word updateWord(@RequestBody Word word) {
+        return wordService.updateWord(word);
     }
 
     /**
-     * Delete specified profession
+     * Delete specified word
      *
-     * @param id unique identifier of profession
+     * @param id unique identifier of word
      * @return true in case of success, otherwise false
      */
     @DeleteMapping
-    public Boolean deleteProfession(@RequestParam String id) {
-        return professionService.deleteProfession(Long.valueOf(id));
+    public Boolean deleteWord(@RequestParam String id) {
+        return wordService.deleteWord(Long.valueOf(id));
     }
 }
